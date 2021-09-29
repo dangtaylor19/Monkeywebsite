@@ -1,0 +1,8 @@
+html, body{
+    margin: 0px;
+    background-color: #1d4a08
+}
+canvas{
+    border-style: double;
+    background-image: url(topdownjungle.jpg);
+}
