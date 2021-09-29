@@ -15,7 +15,12 @@ bananaImage.width = 64;
 bananaImage.height = 64;
 
 var evilImages = [];
-evilImages[0] = new Image(); evilImages[0].src="excavator.png"; evilImages[0].width = 64; evilImages[0].height = 64;
+evilImages[0] = new Image(); evilImages[0].src="excavator.png";
+evilImages[1] = new Image(); evilImages[1].src="excavator2.png";
+evilImages.forEach(evilImage => {
+    evilImage.width = 64; evilImage.height = 64;
+});
+
 
 class Monkey{
     
@@ -66,6 +71,24 @@ class Enemy{
     }
 }
 
+class Enemy2{
+    constructor(x, y, velocity){
+        this.x = x;
+        this.y = y;
+        this.velocity = velocity;
+    }
+
+    draw(){
+        context.drawImage(evilImages[1], this.x-64, this.y);
+    }
+
+    update(){
+        this.draw();
+        this.x += this.velocity.x * 2;
+        this.y += this.velocity.y * 2;
+    }
+}
+
 const monkey = new Monkey(canvas.width/2 - playerImage.width, canvas.height/2-playerImage.height, playerImage);
 
 const bananas = [];
@@ -88,7 +111,7 @@ function spawnEnemies(){
         const angle = Math.atan2(canvas.height / 2 - playerImage.height/8 - y, canvas.width/2 - playerImage.width/8 - x);
         const velocity = {x: Math.cos(angle), y: Math.sin(angle)};
 
-        enemies.push(new Enemy(x, y, velocity));
+        enemies.push(Math.random() > 0.5 ? new Enemy(x, y, velocity) : new Enemy2(x, y, velocity));
     }, 1000);
 }
 
